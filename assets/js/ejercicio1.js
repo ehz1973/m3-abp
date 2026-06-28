@@ -8,8 +8,8 @@ function iniciar() {
         { origen: "Santiago", destino: "Santiago", tarifa: 1000, valorEnvio: 0 },
         { origen: "Santiago", destino: "Rancagua", tarifa: 1500, valorEnvio: 0 },
         { origen: "Santiago", destino: "Valparaíso", tarifa: 1500, valorEnvio: 0 },
-        { origen: "Santiago", destino: "Coquimbo", tarifa: 2000, valorEnvio: 0 }]
-    const cancelarEntrada = null
+        { origen: "Santiago", destino: "Coquimbo", tarifa: 2000, valorEnvio: 0 }];
+    const cancelarEntrada = null;
 
     do {
         do {
@@ -17,7 +17,7 @@ function iniciar() {
             do {
                 entradaNumero.texto = prompt("Ingrese el peso físico del bulto (kg):");
                 if (entradaNumero.texto === cancelarEntrada) {
-                    if (confirm("¿Está seguro que desea omitir los datos de este bulto?")) {
+                    if (confirm("¿Está seguro que desea descartar los datos de este bulto?")) {
                         break;
                     } else {
                         continue;
@@ -37,7 +37,7 @@ function iniciar() {
             do {
                 entradaNumero.texto = prompt("Ingrese el ancho del bulto (cm):");
                 if (entradaNumero.texto === cancelarEntrada) {
-                    if (confirm("¿Está seguro que desea omitir los datos de este bulto?")) {
+                    if (confirm("¿Está seguro que desea descartar los datos de este bulto?")) {
                         break;
                     } else {
                         continue;
@@ -57,7 +57,7 @@ function iniciar() {
             do {
                 entradaNumero.texto = prompt("Ingrese el largo del bulto (cm):");
                 if (entradaNumero.texto === cancelarEntrada) {
-                    if (confirm("¿Está seguro que desea omitir los datos de este bulto?")) {
+                    if (confirm("¿Está seguro que desea descartar los datos de este bulto?")) {
                         break;
                     } else {
                         continue;
@@ -77,7 +77,7 @@ function iniciar() {
             do {
                 entradaNumero.texto = prompt("Ingrese el alto del bulto (cm):");
                 if (entradaNumero.texto === cancelarEntrada) {
-                    if (confirm("¿Está seguro que desea omitir los datos de este bulto?")) {
+                    if (confirm("¿Está seguro que desea descartar los datos de este bulto?")) {
                         break;
                     } else {
                         continue;
@@ -98,17 +98,21 @@ function iniciar() {
             encomienda.bultos[encomienda.bultos.length - 1].pesoMayor = Math.max(encomienda.bultos[encomienda.bultos.length - 1].pesoFisico, encomienda.bultos[encomienda.bultos.length - 1].pesoVolumetrico);
             encomienda.pesoEncomienda += encomienda.bultos[encomienda.bultos.length - 1].pesoMayor;
         } while (confirm("Desea agregar otro bulto?"));
-        for (let valorEncomienda of valoresEncomienda) {
+        for (const valorEncomienda of valoresEncomienda) {
             valorEncomienda.valorEnvio = encomienda.pesoEncomienda * valorEncomienda.tarifa;
         }
-        console.log("Datos de los bultos:");
-        console.table(encomienda.bultos);
-        console.log(`Peso de la encomienda: ${encomienda.pesoEncomienda}`);
-        console.log("Valores de envío:");
-        console.table(valoresEncomienda);
+        if (encomienda.bultos.length > 0) {
+            console.log("Datos de los bultos:");
+            console.table(encomienda.bultos);
+            console.log(`Peso de la encomienda: ${encomienda.pesoEncomienda}`);
+            console.log("Valores de envío:");
+            console.table(valoresEncomienda);
+        } else {
+            console.log("Encomienda sin información.");
+        }
         encomienda.bultos.length = 0;
         encomienda.pesoEncomienda = 0;
-        for (let valorEncomienda of valoresEncomienda) {
+        for (const valorEncomienda of valoresEncomienda) {
             valorEncomienda.valorEnvio = 0;
         }
     } while (confirm("Desea procesar una nueva encomienda?"));
