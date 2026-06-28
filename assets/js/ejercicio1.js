@@ -99,7 +99,7 @@ function iniciar() {
             encomienda.pesoEncomienda += encomienda.bultos[encomienda.bultos.length - 1].pesoMayor;
         } while (confirm("Desea agregar otro bulto?"));
         for (const valorEncomienda of valoresEncomienda) {
-            valorEncomienda.valorEnvio = encomienda.pesoEncomienda * valorEncomienda.tarifa;
+            valorEncomienda.valorEnvio = Math.trunc(encomienda.pesoEncomienda * valorEncomienda.tarifa);
         }
         if (encomienda.bultos.length > 0) {
             console.log("Datos de los bultos:");
