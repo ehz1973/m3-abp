@@ -1,0 +1,128 @@
+const botonIniciar = document.getElementById("boton-iniciar");
+
+function iniciar() {
+    const entradaNumero = { texto: "", numero: 0 };
+    const factorVolumetrico = 4000;
+    const encomienda = { bultos: [], pesoEncomienda: 0 };
+    const valoresEncomienda = [
+        { origen: "Santiago", destino: "Santiago", tarifa: 1000, valorEnvio: 0 },
+        { origen: "Santiago", destino: "Rancagua", tarifa: 1500, valorEnvio: 0 },
+        { origen: "Santiago", destino: "Valparaíso", tarifa: 1500, valorEnvio: 0 },
+        { origen: "Santiago", destino: "Coquimbo", tarifa: 2000, valorEnvio: 0 }]
+    const cancelarEntrada = null
+
+    do {
+        do {
+            encomienda.bultos.push({ pesoFisico: 0, ancho: 0, largo: 0, alto: 0, pesoVolumetrico: 0, pesoMayor: 0 });
+            do {
+                entradaNumero.texto = prompt("Ingrese el peso físico del bulto (kg):");
+                if (entradaNumero.texto === cancelarEntrada) {
+                    if (confirm("¿Está seguro que desea omitir los datos de este bulto?")) {
+                        break;
+                    } else {
+                        continue;
+                    }
+                }
+                if (esNumero(entradaNumero) && entradaNumero.numero > 0) {
+                    encomienda.bultos[encomienda.bultos.length - 1].pesoFisico = entradaNumero.numero;
+                    break;
+                } else {
+                    alert("Debe ingresar un número válido mayor que cero!");
+                }
+            } while (true);
+            if (entradaNumero.texto === cancelarEntrada) {
+                encomienda.bultos.pop();
+                continue;
+            }
+            do {
+                entradaNumero.texto = prompt("Ingrese el ancho del bulto (cm):");
+                if (entradaNumero.texto === cancelarEntrada) {
+                    if (confirm("¿Está seguro que desea omitir los datos de este bulto?")) {
+                        break;
+                    } else {
+                        continue;
+                    }
+                }
+                if (esNumero(entradaNumero) && entradaNumero.numero > 0) {
+                    encomienda.bultos[encomienda.bultos.length - 1].ancho = entradaNumero.numero;
+                    break;
+                } else {
+                    alert("Debe ingresar un número válido mayor que cero!");
+                }
+            } while (true);
+            if (entradaNumero.texto === cancelarEntrada) {
+                encomienda.bultos.pop();
+                continue;
+            }
+            do {
+                entradaNumero.texto = prompt("Ingrese el largo del bulto (cm):");
+                if (entradaNumero.texto === cancelarEntrada) {
+                    if (confirm("¿Está seguro que desea omitir los datos de este bulto?")) {
+                        break;
+                    } else {
+                        continue;
+                    }
+                }
+                if (esNumero(entradaNumero) && entradaNumero.numero > 0) {
+                    encomienda.bultos[encomienda.bultos.length - 1].largo = entradaNumero.numero;
+                    break;
+                } else {
+                    alert("Debe ingresar un número válido mayor que cero!");
+                }
+            } while (true);
+            if (entradaNumero.texto === cancelarEntrada) {
+                encomienda.bultos.pop();
+                continue;
+            }
+            do {
+                entradaNumero.texto = prompt("Ingrese el alto del bulto (cm):");
+                if (entradaNumero.texto === cancelarEntrada) {
+                    if (confirm("¿Está seguro que desea omitir los datos de este bulto?")) {
+                        break;
+                    } else {
+                        continue;
+                    }
+                }
+                if (esNumero(entradaNumero) && entradaNumero.numero > 0) {
+                    encomienda.bultos[encomienda.bultos.length - 1].alto = entradaNumero.numero;
+                    break;
+                } else {
+                    alert("Debe ingresar un número válido mayor que cero!");
+                }
+            } while (true);
+            if (entradaNumero.texto === cancelarEntrada) {
+                encomienda.bultos.pop();
+                continue;
+            }
+            encomienda.bultos[encomienda.bultos.length - 1].pesoVolumetrico = (encomienda.bultos[encomienda.bultos.length - 1].ancho * encomienda.bultos[encomienda.bultos.length - 1].largo * encomienda.bultos[encomienda.bultos.length - 1].alto) / factorVolumetrico;
+            encomienda.bultos[encomienda.bultos.length - 1].pesoMayor = Math.max(encomienda.bultos[encomienda.bultos.length - 1].pesoFisico, encomienda.bultos[encomienda.bultos.length - 1].pesoVolumetrico);
+            encomienda.pesoEncomienda += encomienda.bultos[encomienda.bultos.length - 1].pesoMayor;
+        } while (confirm("Desea agregar otro bulto?"));
+        for (let valorEncomienda of valoresEncomienda) {
+            valorEncomienda.valorEnvio = encomienda.pesoEncomienda * valorEncomienda.tarifa;
+        }
+        console.log("Datos de los bultos:");
+        console.table(encomienda.bultos);
+        console.log(`Peso de la encomienda: ${encomienda.pesoEncomienda}`);
+        console.log("Valores de envío:");
+        console.table(valoresEncomienda);
+        encomienda.bultos.length = 0;
+        encomienda.pesoEncomienda = 0;
+        for (let valorEncomienda of valoresEncomienda) {
+            valorEncomienda.valorEnvio = 0;
+        }
+    } while (confirm("Desea procesar una nueva encomienda?"));
+}
+
+/**
+ * Valida si una cadena de texto representa un número válido y finito.
+ * @param {Object} objeto - Objeto que contiene las propiedades a validar
+ * @param {string} objeto.texto - Cadena de texto a validar
+ * @param {number} objeto.numero - Propiedad donde se asigna el número convertido
+ * @returns {boolean} true si la cadena es un número válido y finito, false en caso contrario
+ */
+function esNumero(objeto) {
+    return objeto.texto.trim() !== "" && Number.isFinite(objeto.numero = Number(objeto.texto));
+}
+
+botonIniciar.addEventListener("click", iniciar);
