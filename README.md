@@ -36,10 +36,11 @@ Este proyecto es una pequeña aplicación web que permite calcular el valor de e
 - JavaScript
 - Bootstrap 5
 
+## GitHub
+
+- **Repositorio:** https://github.com/ehz1973/m3-abp
+- **Desplegable:** https://ehz1973.github.io/m3-abp/ejercicio1.html
+
 ## Autor
 
 Exequiel Hernandez
-
-## Desplegable
-
-- **URL:** https://ehz1973.github.io/m3-abp/ejercicio1.html
