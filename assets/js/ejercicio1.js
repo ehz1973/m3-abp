@@ -13,6 +13,7 @@ function iniciar() {
 
     do {
         do {
+            // Cada bulto nuevo se agrega con valores iniciales que luego se irán completando con los datos del usuario.
             encomienda.bultos.push({ pesoFisico: 0, ancho: 0, largo: 0, alto: 0, pesoVolumetrico: 0, pesoMayor: 0 });
             do {
                 entradaNumero.texto = prompt("Ingrese el peso físico del bulto (kg):");
@@ -100,9 +101,12 @@ function iniciar() {
                 encomienda.bultos[encomienda.bultos.length - 1].alto,
                 factorVolumetrico
             );
+            // Se compara el peso físico con el volumétrico para tomar el mayor como peso del bulto.
             encomienda.bultos[encomienda.bultos.length - 1].pesoMayor = Math.max(encomienda.bultos[encomienda.bultos.length - 1].pesoFisico, encomienda.bultos[encomienda.bultos.length - 1].pesoVolumetrico);
+            // El peso del bulto se suma al total de la encomienda para calcular el valor de envío mas adelante.
             encomienda.pesoEncomienda += encomienda.bultos[encomienda.bultos.length - 1].pesoMayor;
         } while (confirm("Desea agregar otro bulto?"));
+        // Se calculan los valores de envío para cada posible destino según el peso total acumulado.
         for (const valorEncomienda of valoresEncomienda) {
             valorEncomienda.valorEnvio = Math.trunc(encomienda.pesoEncomienda * valorEncomienda.tarifa);
         }
@@ -115,6 +119,7 @@ function iniciar() {
         } else {
             console.log("Encomienda sin información.");
         }
+        // Se reinician los datos para preparar la siguiente encomienda sin conservar valores previos.
         encomienda.bultos.length = 0;
         encomienda.pesoEncomienda = 0;
         valoresEncomienda.forEach(valorEncomienda => valorEncomienda.valorEnvio = 0);
