@@ -94,7 +94,12 @@ function iniciar() {
                 encomienda.bultos.pop();
                 continue;
             }
-            encomienda.bultos[encomienda.bultos.length - 1].pesoVolumetrico = (encomienda.bultos[encomienda.bultos.length - 1].ancho * encomienda.bultos[encomienda.bultos.length - 1].largo * encomienda.bultos[encomienda.bultos.length - 1].alto) / factorVolumetrico;
+            encomienda.bultos[encomienda.bultos.length - 1].pesoVolumetrico = calculoVolumetrico(
+                encomienda.bultos[encomienda.bultos.length - 1].ancho,
+                encomienda.bultos[encomienda.bultos.length - 1].largo,
+                encomienda.bultos[encomienda.bultos.length - 1].alto,
+                factorVolumetrico
+            );
             encomienda.bultos[encomienda.bultos.length - 1].pesoMayor = Math.max(encomienda.bultos[encomienda.bultos.length - 1].pesoFisico, encomienda.bultos[encomienda.bultos.length - 1].pesoVolumetrico);
             encomienda.pesoEncomienda += encomienda.bultos[encomienda.bultos.length - 1].pesoMayor;
         } while (confirm("Desea agregar otro bulto?"));
@@ -127,6 +132,18 @@ function iniciar() {
  */
 function esNumero(objeto) {
     return objeto.texto.trim() !== "" && Number.isFinite(objeto.numero = Number(objeto.texto));
+}
+
+/**
+ * Calcula el peso volumétrico de un bulto a partir de sus dimensiones y un factor de conversión.
+ * @param {number} ancho - Ancho del bulto en centímetros.
+ * @param {number} largo - Largo del bulto en centímetros.
+ * @param {number} alto - Alto del bulto en centímetros.
+ * @param {number} factor - Factor de conversión utilizado para calcular el peso volumétrico.
+ * @returns {number} El peso volumétrico calculado.
+ */
+function calculoVolumetrico(ancho, largo, alto, factor) {
+    return (ancho * largo * alto) / factor;
 }
 
 botonIniciar.addEventListener("click", iniciar);
