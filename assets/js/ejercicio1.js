@@ -117,9 +117,7 @@ function iniciar() {
         }
         encomienda.bultos.length = 0;
         encomienda.pesoEncomienda = 0;
-        for (const valorEncomienda of valoresEncomienda) {
-            valorEncomienda.valorEnvio = 0;
-        }
+        valoresEncomienda.forEach(valorEncomienda => valorEncomienda.valorEnvio = 0);
     } while (confirm("Desea procesar una nueva encomienda?"));
 }
 
