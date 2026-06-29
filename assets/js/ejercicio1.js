@@ -95,7 +95,7 @@ function iniciar() {
                 encomienda.bultos.pop();
                 continue;
             }
-            encomienda.bultos[encomienda.bultos.length - 1].pesoVolumetrico = calculoVolumetrico(
+            encomienda.bultos[encomienda.bultos.length - 1].pesoVolumetrico = calculaPesoVolumetrico(
                 encomienda.bultos[encomienda.bultos.length - 1].ancho,
                 encomienda.bultos[encomienda.bultos.length - 1].largo,
                 encomienda.bultos[encomienda.bultos.length - 1].alto,
@@ -145,7 +145,7 @@ function esNumero(objeto) {
  * @param {number} factor - Factor de conversión utilizado para calcular el peso volumétrico.
  * @returns {number} El peso volumétrico calculado.
  */
-function calculoVolumetrico(ancho, largo, alto, factor) {
+function calculaPesoVolumetrico(ancho, largo, alto, factor) {
     return (ancho * largo * alto) / factor;
 }
 
